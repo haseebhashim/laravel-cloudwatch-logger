@@ -1,0 +1,51 @@
+{
+  "name": "haseebhashim/laravel-cloudwatch-logger",
+  "description": "AWS CloudWatch logging driver for Laravel",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "aws",
+    "cloudwatch",
+    "logging",
+    "monolog"
+  ],
+  "autoload": {
+    "psr-4": {
+      "HaseebHashim\\CloudWatchLogs\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "HaseebHashim\\CloudWatchLogs\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Haseeb Hashim",
+      "email": "haseebshahgee@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "aws/aws-sdk-php": "^3.300",
+    "monolog/monolog": "^3.0",
+    "illuminate/support": "^10.0|^11.0|^12.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5|^11.0"
+  },
+  "scripts": {
+    "test": "phpunit",
+    "lint": "php -l src/Logging/CloudWatchLogger.php && php -l src/CloudWatchLogsServiceProvider.php && php -l config/cloudwatch-logs.php"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "HaseebHashim\\CloudWatchLogs\\CloudWatchLogsServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
