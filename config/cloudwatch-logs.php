@@ -41,7 +41,8 @@ return [
     | CloudWatch Log Stream
     |--------------------------------------------------------------------------
     |
-    | The name of the CloudWatch Log Stream.
+    | The name of the CloudWatch Log Stream. Example:
+    | {{env}}-{{hostname}}-{{date}}
     |
     | Supported placeholders: {{hostname}}, {{env}}, {{date}}
     |
