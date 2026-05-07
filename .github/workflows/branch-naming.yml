@@ -1,0 +1,27 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  branch-name-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch naming convention
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          echo "Branch: $BRANCH_NAME"
+
+          if [[ "$BRANCH_NAME" == "develop" ]]; then
+            exit 0
+          fi
+
+          if [[ ! $BRANCH_NAME =~ ^(feature|fix|hotfix|chore|release|docs|test|refactor|ci)\/[a-z0-9._-]+$ ]]; then
+            echo "Invalid branch name."
+            echo "Use develop, or one of: feature/*, fix/*, hotfix/*, chore/*, release/*, docs/*, test/*, refactor/*, ci/*"
+            exit 1
+          fi
