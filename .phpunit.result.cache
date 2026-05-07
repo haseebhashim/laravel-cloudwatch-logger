@@ -1,1 +1,0 @@
-{"version":2,"defects":[],"times":{"HaseebHashim\\CloudWatchLogs\\Tests\\CloudWatchLoggerTest::test_it_creates_cloudwatch_resources_and_writes_a_log_event":0.149,"HaseebHashim\\CloudWatchLogs\\Tests\\CloudWatchLoggerTest::test_it_retries_with_the_expected_sequence_token":0.014}}
