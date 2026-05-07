@@ -208,101 +208,11 @@ Run a syntax check:
 composer lint
 ```
 
-Before publishing, validate the Composer package:
+Validate the Composer package metadata:
 
 ```bash
 composer validate --strict
 ```
-
-## Publishing Checklist
-
-These steps are for package maintainers preparing a release on Packagist.
-
-1. Confirm the package name in `composer.json`.
-
-   ```json
-   "name": "haseebhashim/laravel-cloudwatch-logger"
-   ```
-
-   The name should match the package name you want users to install:
-
-   ```bash
-   composer require haseebhashim/laravel-cloudwatch-logger
-   ```
-
-2. Remove files that should not be committed for a library package.
-
-   Keep these ignored:
-
-   ```text
-   vendor/
-   composer.lock
-   ```
-
-   Package users will install dependencies from their own project.
-
-3. Run the local checks.
-
-   ```bash
-   composer install
-   composer lint
-   composer test
-   composer validate --strict
-   ```
-
-4. Create a Git repository if this folder is not already a repository.
-
-   ```bash
-   git init
-   git add .
-   git commit -m "Prepare initial release"
-   ```
-
-5. Create a new public GitHub repository, then push the package.
-
-   ```bash
-   git branch -M main
-   git remote add origin https://github.com/haseebhashim/laravel-cloudwatch-logger.git
-   git push -u origin main
-   ```
-
-6. Create the first release tag.
-
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-
-   Packagist reads Composer package versions from Git tags. Use semantic versions such as `v1.0.0`, `v1.0.1`, and `v1.1.0`.
-
-7. Submit the package to Packagist.
-
-   - Create or log in to your account at [packagist.org](https://packagist.org).
-   - Open [Submit Package](https://packagist.org/packages/submit).
-   - Paste the public GitHub repository URL.
-   - Click check/submit and confirm the package.
-
-8. Enable GitHub auto-updates on Packagist.
-
-   Log in to Packagist with GitHub or connect GitHub from your Packagist profile. This lets Packagist update the package when you push new tags.
-
-9. Test installation in a separate Laravel project.
-
-   ```bash
-   composer require haseebhashim/laravel-cloudwatch-logger
-   ```
-
-10. For future releases, commit your changes, tag a new version, and push the tag.
-
-    ```bash
-    git add .
-    git commit -m "Describe the change"
-    git tag v1.0.1
-    git push origin main
-    git push origin v1.0.1
-    ```
-
-Add a GitHub Actions workflow for `composer install`, `composer lint`, and `composer test` before accepting contributions.
 
 ## License
 
