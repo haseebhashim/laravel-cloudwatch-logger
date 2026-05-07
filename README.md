@@ -54,12 +54,12 @@ AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 
 CLOUDWATCH_LOG_GROUP=laravel-app
-CLOUDWATCH_LOG_STREAM="${APP_ENV}-{{hostname}}"
+CLOUDWATCH_LOG_STREAM="{{env}}-{{hostname}}-{{date}}"
 CLOUDWATCH_LOG_RETENTION=30
 CLOUDWATCH_LOG_LEVEL=debug
 ```
 
-Supported stream placeholders:
+Supported stream placeholders are resolved when the CloudWatch handler is created:
 
 - `{{hostname}}`: server hostname
 - `{{env}}`: Laravel application environment
@@ -166,6 +166,29 @@ Log::channel('cloudwatch')->info('CloudWatch test log', ['time' => now()->toISOS
 ```
 
 Then check the configured log group and stream in the AWS CloudWatch console.
+
+You can also add a temporary route to `routes/web.php` in your Laravel application:
+
+```php
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/test-cloudwatch-log', function () {
+    Log::channel('cloudwatch')->info('CloudWatch test route log', [
+        'time' => now()->toISOString(),
+        'environment' => app()->environment(),
+        'url' => request()->fullUrl(),
+    ]);
+
+    return response()->json([
+        'message' => 'CloudWatch test log sent.',
+        'log_group' => config('cloudwatch-logs.log_group'),
+        'log_stream' => config('cloudwatch-logs.log_stream'),
+    ]);
+});
+```
+
+Open `/test-cloudwatch-log` once, confirm the log appears in CloudWatch, and then remove the route.
 
 ## Troubleshooting
 
